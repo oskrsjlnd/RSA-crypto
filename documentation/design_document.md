@@ -18,4 +18,4 @@ User has the options to input a message to be decrypted or the option to decrypt
 [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 [Miller-Rabin primality test](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test)
 
-Currently a BSc Computer Science student.
+Currently a BSc Computer Science student (TKT).
