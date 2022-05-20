@@ -3,8 +3,24 @@ name: CI
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'documentation/**'
+      - 'README.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.pylintrc'
+      - 'poetry.lock'
+      - 'pyproject.toml'
   pull_request:
     branches: [main]
+    paths-ignore:
+      - 'documentation/**'
+      - 'README.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.pylintrc'
+      - 'poetry.lock'
+      - 'pyproject.toml'
 
 jobs:
   build:
