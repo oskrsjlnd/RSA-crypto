@@ -4,3 +4,4 @@
 [Design document](https://github.com/oskrsjlnd/RSA-crypto/blob/main/documentation/design_document.md)
 ### Weekly reports
 [Week 1](https://github.com/oskrsjlnd/RSA-crypto/blob/main/documentation/week1.md)
+[Week 2](https://github.com/oskrsjlnd/RSA-crypto/blob/main/documentation/week2.md)
