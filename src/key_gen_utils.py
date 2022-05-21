@@ -14,14 +14,14 @@ class KeyGenUtilities:
         while True:
             if i*i >= upper_limit+1:
                 break
-            if i%2 == 0:
-                i += 1
-                continue
             if is_prime[i]:
                 for j in range(i*i, upper_limit+1, i):
                     is_prime[j] = False
-            i += 1
+            i += 2
 
         for i in range(2, upper_limit+1):
             if is_prime[i]:
                 self.low_primes.add(i)
+    
+    def get_low_primes(self):
+        return self.low_primes
