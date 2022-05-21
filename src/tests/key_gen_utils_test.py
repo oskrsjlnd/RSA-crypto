@@ -13,3 +13,8 @@ class TestKeyGenUtilities(unittest.TestCase):
         self.keygen_utils.find_all_primes(8000)
         primes = set(primerange(0, 8000))
         self.assertSetEqual(self.keygen_utils.low_primes, primes)
+    
+    def test_get_low_primes_returns_set(self):
+        self.keygen_utils.find_all_primes(20)
+        low_primes = self.keygen_utils.get_low_primes()
+        self.assertIsInstance(low_primes, set)
