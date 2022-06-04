@@ -1,4 +1,4 @@
-# Week 1
+# Week 2
 ## What did I do this week?
 Setup Poetry, GitHub Actions, Codecov and Pylint. I learned about the Sieve of Eratosthenes
 and implemented utilities class with a function to find all the primes up to n (based on
