@@ -1,6 +1,6 @@
 import unittest
 from sympy import isprime
-from key_gen_utils import KeyGenerator
+from src.key_gen_utils import KeyGenerator
 
 class TestKeyGenerator(unittest.TestCase):
     def setUp(self):
