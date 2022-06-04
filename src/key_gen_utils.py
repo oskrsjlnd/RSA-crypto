@@ -14,6 +14,14 @@ class KeyGenerator:
                 break
             prime_b = self.generate_prime()
         self.prime_pair = (prime_a, prime_b)
+    
+    def exponent_for_prime_test(self, prime_candidate):
+        d = prime_candidate - 1
+        max_div_by_two = 0
+        while d ^ 1 == d + 1:
+            d >>= 1
+            max_div_by_two += 1
+        return (d, max_div_by_two)
 
     def generate_prime(self, bits=1024, rounds=40):
         while True:
@@ -21,22 +29,20 @@ class KeyGenerator:
             if prime_candidate % 2 == 0:
                 prime_candidate += 1
             is_prime = True
-
-            d = prime_candidate - 1
-            max_div_by_two = 0
-            while d ^ 1 == d + 1:
-                d >>= 1
-                max_div_by_two += 1
+            exp_and_max_div = self.exponent_for_prime_test(prime_candidate)
 
             for _ in range(rounds):
-                if not self.prime_test_round(prime_candidate, d, max_div_by_two):
+                if not self.prime_test_round(prime_candidate, exp_and_max_div):
                     is_prime = False
 
             if is_prime:
                 return prime_candidate          
     
-    def prime_test_round(self, prime_candidate, d, max_div_by_two):
+    def prime_test_round(self, prime_candidate, exp_and_max_div):
         a = randrange(2, prime_candidate-1)
+        d = exp_and_max_div[0]
+        max_div_by_two = exp_and_max_div[1]
+        
         x = pow(a, d, prime_candidate)
         if x == 1 or x == prime_candidate - 1:
             return True
