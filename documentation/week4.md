@@ -9,8 +9,7 @@ Most of the algorithmic work is done.
 Miller-Rabin primality test, Extended Euclidean algorithm.
 
 ## Problems / what is unclear?
-Tests are not done properly yet.
+Testing might not be comprehensive.
 
 ## What next?
-Finish algorithms and tests, write test document and generate keys for encryption. Implement encryption
-and decryption.
+Finish algorithms and tests, write test document and generate keys for encryption. Implement encryption and decryption.
