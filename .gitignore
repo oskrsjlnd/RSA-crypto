@@ -3,4 +3,5 @@ __pycache__
 .env
 tests/*
 .coverage
-htmlcov
+htmlcov/*
+coverage.xml
