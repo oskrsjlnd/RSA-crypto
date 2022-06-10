@@ -2,9 +2,8 @@ from random import randrange, getrandbits
 
 class KeyGenerator:
     def __init__(self):
-        self.coefficients = None
-        self.gcd = None
-        self.prime_pair = None
+        self.public_key = None
+        self.private_key = None
 
     def find_distinct_primes(self):
         prime_a = self.generate_prime()
@@ -13,7 +12,7 @@ class KeyGenerator:
             if prime_a != prime_b:
                 break
             prime_b = self.generate_prime()
-        self.prime_pair = (prime_a, prime_b)
+        return prime_a, prime_b
 
     def exponent_for_prime_test(self, prime_candidate):
         d = prime_candidate - 1
@@ -53,25 +52,31 @@ class KeyGenerator:
 
         return False
 
-    def extended_euclidean_algorithm(self, a, b):
+    def gcd(self, a, b):
         gcd, remainder = a, b
-        coefficient_1, s = 1, 0
-        coefficient_2, t = 0, 1
 
         while remainder != 0:
             quotient = gcd//remainder
             gcd, remainder = remainder, gcd-quotient*remainder
-            coefficient_1, s = s, coefficient_1-quotient*s
-            coefficient_2, t = t, coefficient_2-quotient*t
+        return gcd
 
-        self.coefficients = (coefficient_1, coefficient_2)
-        self.gcd = gcd
+    def generate_keys(self):
+        primes = self.find_distinct_primes()
+        gcd = self.gcd(primes[0]-1, primes[1]-1)
+        carmichael_totient = (primes[0]-1)*(primes[1]-1)//gcd
+        e = 65537
+        d = pow(e, -1, carmichael_totient)
+        n = primes[0]*primes[1]
+        self.public_key = (n, e)
+        self.private_key = (n, d)
 
-    def get_gcd(self):
-        return self.gcd
+    def get_public_key(self):
+        return self.public_key
 
-    def get_coefficients(self):
-        return self.coefficients
+    def get_private_key(self):
+        return self.private_key
 
-    def get_prime_pair(self):
-        return self.prime_pair
+# if __name__ == "__main__":
+#     keygen = KeyGenerator()
+#     keygen.generate_keys()
+#     print(keygen.get_private_key(), keygen.get_public_key())
