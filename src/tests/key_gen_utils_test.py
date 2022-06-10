@@ -7,15 +7,12 @@ class TestKeyGenerator(unittest.TestCase):
         self.keygen = KeyGenerator()
 
     def test_constructor_creates_generator(self):
-        self.assertEqual(self.keygen.prime_pair, None)
-        self.assertEqual(self.keygen.gcd, None)
-        self.assertEqual(self.keygen.coefficients, None)
+        self.assertIsNone(self.keygen.public_key)
+        self.assertIsNone(self.keygen.private_key)
 
     def test_primes_are_distinct(self):
-        self.keygen.find_distinct_primes()
-        prime_a = self.keygen.prime_pair[0]
-        prime_b = self.keygen.prime_pair[1]
-        self.assertNotEqual(prime_a, prime_b)
+        primes = self.keygen.find_distinct_primes()
+        self.assertNotEqual(primes[0], primes[1])
 
     def test_exp_and_max_div_returns_correct_values(self):
         exp_and_max_div = self.keygen.exponent_for_prime_test(199)
@@ -35,25 +32,8 @@ class TestKeyGenerator(unittest.TestCase):
         pseudoprime = self.keygen.generate_prime()
         self.assertTrue(isprime(pseudoprime))
 
-    def test_function_finds_gcd(self):
-        self.keygen.find_distinct_primes()
+    def test_function_finds_valid_gcd(self):
         a = 45220
         b = 45530
-        self.keygen.extended_euclidean_algorithm(a, b)
-        self.assertEqual(self.keygen.get_gcd(), 10)
-
-    def test_getter_returns_gcdg(self):
-        self.keygen.extended_euclidean_algorithm(45220, 45530)
-        self.assertEqual(self.keygen.get_gcd(), 10)
-
-    def test_extended_euclid_finds_coefficients(self):
-        self.keygen.extended_euclidean_algorithm(45220, 45530)
-        self.assertEqual(self.keygen.get_coefficients(), (-1175, 1167))
-
-    def test_getter_returns_coefficient_tuple(self):
-        self.keygen.extended_euclidean_algorithm(45220, 45530)
-        self.assertIsInstance(self.keygen.get_coefficients(), tuple)
-
-    def test_getter_returns_prime_pair_tuple(self):
-        self.keygen.find_distinct_primes()
-        self.assertIsInstance(self.keygen.get_prime_pair(), tuple)
+        gcd = self.keygen.gcd(a, b)
+        self.assertEqual(gcd, 10)
