@@ -19,7 +19,10 @@ class Crypt:
         return int.from_bytes(text.encode(), "big")
     
     def int_to_str(self, text, size):
-        return text.to_bytes(size, "big").decode()
+        try:
+            return text.to_bytes(size, "big").decode()
+        except:
+            return "Wrong private key"
 
     def size_as_bytes_for_conversion(self, text):
         return len(text.encode())
