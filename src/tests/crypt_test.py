@@ -1,6 +1,5 @@
 import unittest
 from src.crypt import Crypt
-from src.key_gen_utils import KeyGenerator
 
 class TestCrypt(unittest.TestCase):
     def setUp(self):
