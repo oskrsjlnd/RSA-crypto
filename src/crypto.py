@@ -8,7 +8,7 @@ class Crypt:
             bytesize = self.size_as_bytes_for_conversion(plaintext)
             plaintext_as_int = self.str_to_int(plaintext)
             ciphertext = pow(plaintext_as_int, e, n)
-        except:
+        except ValueError:
             return None
         return ciphertext, bytesize
 
@@ -22,17 +22,17 @@ class Crypt:
             ciphertext, size_for_conversion = cipher[0], cipher[1]
             plaintext_as_int = pow(ciphertext, d, n)
             plaintext = self.int_to_str(plaintext_as_int, size_for_conversion)
-        except:
+        except ValueError:
             return None
         return plaintext
-    
+
     def str_to_int(self, text):
         return int.from_bytes(text.encode(), "big", signed=False)
-    
+
     def int_to_str(self, text, size):
         try:
             return text.to_bytes(size, "big", signed=False).decode()
-        except:
+        except ValueError:
             return "Wrong private key"
 
     def size_as_bytes_for_conversion(self, text):
