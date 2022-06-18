@@ -291,8 +291,29 @@ class TestKeyGenerator(unittest.TestCase):
         probable_prime = self.keygen.generate_prime()
         self.assertTrue(isprime(probable_prime))
 
-    def test_function_finds_valid_gcd(self):
-        a = 45220
-        b = 45530
-        gcd = self.keygen.gcd(a, b)
+    def test_gcd_returns_1_for_primes(self):
+        primes = [1000000000039, 
+            1000000000061, 
+            1000000000063, 
+            1000000000091, 
+            1000000000121, 
+            1000000000163, 
+            1000000000169, 
+            1000000000177, 
+            1000000000189, 
+            1000000000193, 
+            1000000000211, 
+            1000000000271, 
+            1000000000303, 
+            1000000000331, 
+            1000000000333, 
+            1000000000339]
+        for i in range(8):
+            gcd = self.keygen.gcd(primes[i], primes[len(primes)-i-1])
+            self.assertEqual(gcd, 1)
+    
+    def test_gcd_found_for_even_numbers(self):
+        gcd = self.keygen.gcd(10, 20)
         self.assertEqual(gcd, 10)
+        gcd = self.keygen.gcd(1000,1300)
+        self.assertEqual(gcd, 100)
