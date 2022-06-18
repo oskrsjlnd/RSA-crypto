@@ -27,11 +27,11 @@ class Crypt:
         return plaintext
     
     def str_to_int(self, text):
-        return int.from_bytes(text.encode(), "big")
+        return int.from_bytes(text.encode(), "big", signed=False)
     
     def int_to_str(self, text, size):
         try:
-            return text.to_bytes(size, "big").decode()
+            return text.to_bytes(size, "big", signed=False).decode()
         except:
             return "Wrong private key"
 
