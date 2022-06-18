@@ -12,27 +12,27 @@ class TestKeyGenerator(unittest.TestCase):
         self.assertIsNone(self.keygen.private_key)
 
     def test_primes_are_distinct(self):
-        primes = self.keygen.find_distinct_primes()
+        primes = self.keygen.find_distinct_primes(512)
         self.assertNotEqual(primes[0], primes[1])
 
     def test_prime_test_returns_true_for_verified_prime(self):
         verified_prime = 2499856796177491763759508785299725842866290120575138470858067744571954165845818765869202092388075475424521345616052888727535565798781930182410281399742821
         is_prime = True
-        if not self.keygen.k_prime_tests(verified_prime, 40):
+        if not self.keygen.k_prime_tests(verified_prime):
             is_prime = False
         self.assertTrue(is_prime)
 
     def test_prime_test_returns_true_for_verified_prime_2(self):
         verified_prime = 64135289477071580278790190170577389084825014742943447208116859632024532344630238623598752668347708737661925585694639798853367
         is_prime = True
-        if not self.keygen.k_prime_tests(verified_prime, 40):
+        if not self.keygen.k_prime_tests(verified_prime):
             is_prime = False
         self.assertTrue(is_prime)
 
     def test_prime_test_fails_for_semiprime(self):
         semiprime = 2140324650240744961264423072839333563008614715144755017797754920881418023447140136643345519095804679610992851872470914587687396261921557363047454770520805119056493106687691590019759405693457452230589325976697471681738069364894699871578494975937497937
         is_prime = True
-        if not self.keygen.k_prime_tests(semiprime, 40):
+        if not self.keygen.k_prime_tests(semiprime):
             is_prime = False
         self.assertFalse(is_prime)
     
@@ -140,7 +140,7 @@ class TestKeyGenerator(unittest.TestCase):
         
         for prime in primes:
             is_prime = True
-            if not self.keygen.k_prime_tests(prime, 40):
+            if not self.keygen.k_prime_tests(prime):
                 is_prime = False
             self.assertTrue(is_prime)
     
@@ -248,7 +248,7 @@ class TestKeyGenerator(unittest.TestCase):
 
         for composite in composites:
             is_prime = True
-            if not self.keygen.k_prime_tests(composite, 40):
+            if not self.keygen.k_prime_tests(composite):
                 is_prime = False
             self.assertFalse(is_prime)
     
@@ -276,14 +276,14 @@ class TestKeyGenerator(unittest.TestCase):
 
         for semiprime in semiprimes:
             is_prime = True
-            if not self.keygen.k_prime_tests(semiprime, 40):
+            if not self.keygen.k_prime_tests(semiprime):
                 is_prime = False
             self.assertFalse(is_prime)
 
     def test_prime_test_returns_false_for_composite(self):
         composite = 11794051520578639372735469069180758408079391665362167045751736311657604863408765101046999322821353345357387627280987559870289520921156781759163203476682792
         is_prime = True
-        if not self.keygen.k_prime_tests(composite, 40):
+        if not self.keygen.k_prime_tests(composite):
             is_prime = False
         self.assertFalse(is_prime)
 
