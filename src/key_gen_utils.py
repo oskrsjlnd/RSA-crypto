@@ -5,16 +5,16 @@ class KeyGenerator:
         self.public_key = None
         self.private_key = None
 
-    def find_distinct_primes(self):
-        prime_a = self.generate_prime()
-        prime_b = self.generate_prime()
+    def find_distinct_primes(self, bits):
+        prime_a = self.generate_prime(bits)
+        prime_b = self.generate_prime(bits)
         while True:
             if prime_a != prime_b:
                 break
-            prime_b = self.generate_prime()
+            prime_b = self.generate_prime(bits)
         return prime_a, prime_b
 
-    def generate_prime(self, bits=1024, rounds=40):
+    def generate_prime(self, bits=1024):
         while True:
             # p*q results in 1024 bit number so half of the bits required
             # for each prime
@@ -24,12 +24,12 @@ class KeyGenerator:
             if prime_candidate ^ 1 == prime_candidate + 1:
                 prime_candidate += 1
             
-            if self.k_prime_tests(prime_candidate, rounds):
+            if self.k_prime_tests(prime_candidate):
                 break
 
         return prime_candidate
 
-    def k_prime_tests(self, prime_candidate, rounds):
+    def k_prime_tests(self, prime_candidate):
         
         def prime_test(prime_candidate):
             # choose random integer 1 < a < prime_candidate
@@ -59,8 +59,9 @@ class KeyGenerator:
                 d *= d
             return False
 
-        # run Miller-Rabin for the determined amount of rounds to reach
-        # higher probability of the probable prime being prime
+        # run Miller-Rabin for 40 rounds to reach higher probability
+        # of the probable prime being prime
+        rounds = 40
         for _ in range(rounds):
             is_prime = prime_test(prime_candidate) 
             if not is_prime:
@@ -75,8 +76,8 @@ class KeyGenerator:
             gcd, remainder = remainder, gcd-quotient*remainder
         return gcd
 
-    def generate_keys(self):
-        primes = self.find_distinct_primes()
+    def generate_keys(self, bits):
+        primes = self.find_distinct_primes(bits)
         gcd = self.gcd(primes[0]-1, primes[1]-1)
         carmichael_totient = (primes[0]-1)*(primes[1]-1)//gcd
         e = 65537
