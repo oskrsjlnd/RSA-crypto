@@ -1,5 +1,5 @@
 import unittest
-from src.crypt import Crypt
+from src.crypto import Crypt
 
 class TestCrypt(unittest.TestCase):
     def setUp(self):
