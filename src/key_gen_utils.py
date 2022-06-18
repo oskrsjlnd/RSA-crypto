@@ -1,5 +1,5 @@
 from random import randrange, getrandbits
-from sympy import isprime, primerange
+
 class KeyGenerator:
     def __init__(self):
         self.public_key = None
@@ -92,6 +92,3 @@ class KeyGenerator:
         return self.private_key
 
 # if __name__ == "__main__":
-    # keygen = KeyGenerator()        
-#     keygen.generate_keys()
-#     print(keygen.get_private_key(), keygen.get_public_key())
