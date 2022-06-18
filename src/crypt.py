@@ -2,6 +2,8 @@ class Crypt:
     def encrypt_message(self, plaintext, public_key):
         n = public_key[0]
         e = public_key[1]
+
+        # if input string is too long encryption fails
         try:
             bytesize = self.size_as_bytes_for_conversion(plaintext)
             plaintext_as_int = self.str_to_int(plaintext)
@@ -13,6 +15,9 @@ class Crypt:
     def decrypt_message(self, cipher, private_key):
         n = private_key[0]
         d = private_key[1]
+
+        # if decryption is tried with wrong private key, byte size for
+        # conversion is wrong so return None
         try:
             ciphertext, size_for_conversion = cipher[0], cipher[1]
             plaintext_as_int = pow(ciphertext, d, n)
