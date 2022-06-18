@@ -1,5 +1,5 @@
 from random import randrange, getrandbits
-
+from sympy import isprime, primerange
 class KeyGenerator:
     def __init__(self):
         self.public_key = None
@@ -14,44 +14,59 @@ class KeyGenerator:
             prime_b = self.generate_prime()
         return prime_a, prime_b
 
-    def exponent_for_prime_test(self, prime_candidate):
-        d = prime_candidate - 1
-        max_divisions = 0
-        while d ^ 1 == d + 1:
-            d >>= 1
-            max_divisions += 1
-        return (d, max_divisions)
-
     def generate_prime(self, bits=1024, rounds=40):
         while True:
+            # p*q results in 1024 bit number so half of the bits required
+            # for each prime
             prime_candidate = getrandbits(bits//2)
-            if prime_candidate % 2 == 0:
+
+            # prime numbers after 2 must be odd
+            if prime_candidate ^ 1 == prime_candidate + 1:
                 prime_candidate += 1
-            is_prime = True
-            exp_and_max_div = self.exponent_for_prime_test(prime_candidate)
+            
+            if self.k_prime_tests(prime_candidate, rounds):
+                break
 
-            for _ in range(rounds):
-                if not self.prime_test_round(prime_candidate, exp_and_max_div):
-                    is_prime = False
+        return prime_candidate
 
-            if is_prime:
-                return prime_candidate
+    def k_prime_tests(self, prime_candidate, rounds):
+        
+        def prime_test(prime_candidate):
+            # choose random integer 1 < a < prime_candidate
+            a = randrange(2, prime_candidate-1)
+            d = prime_candidate - 1
+            max_div = 0
 
-    def prime_test_round(self, prime_candidate, exp_and_max_div):
-        a = randrange(2, prime_candidate-1)
-        d = exp_and_max_div[0]
-        max_divisions = exp_and_max_div[1]
-
-        x = pow(a, d, prime_candidate)
-        if x in (1, prime_candidate - 1):
-            return True
-
-        for _ in range(max_divisions - 1):
-            if pow(x, 2, prime_candidate) == prime_candidate - 1:
+            # factor powers of 2 out from d and increase max divisions
+            # to count the times d can be squared for the later loop
+            while d ^ 1 != d + 1:
+                d >>= 1
+                max_div += 1
+            
+            b = pow(a, d, prime_candidate)
+            # Fermat's little theorem if b is 1 or -1 then candidate is prime
+            # (write -1 as prime_candidate-1)
+            if b in (1, prime_candidate-1):
                 return True
 
-        return False
+            # keep squaring d until it is larger than or equal to candidate - 1
+            for _ in range(max_div-1):
+                b = pow(a, d, prime_candidate)
 
+                # remainder must be -1 atleast once or candidate is not prime
+                if b == prime_candidate - 1:
+                    return True
+                d *= d
+            return False
+
+        # run Miller-Rabin for the determined amount of rounds to reach
+        # higher probability of the probable prime being prime
+        for _ in range(rounds):
+            is_prime = prime_test(prime_candidate) 
+            if not is_prime:
+                return False
+        return True
+    
     def gcd(self, a, b):
         gcd, remainder = a, b
 
@@ -77,6 +92,6 @@ class KeyGenerator:
         return self.private_key
 
 # if __name__ == "__main__":
-#     keygen = KeyGenerator()
+    # keygen = KeyGenerator()        
 #     keygen.generate_keys()
 #     print(keygen.get_private_key(), keygen.get_public_key())
