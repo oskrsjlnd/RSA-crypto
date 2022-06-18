@@ -1,3 +1,4 @@
+# pylint: skip-file
 import unittest
 from sympy import isprime
 from src.key_gen_utils import KeyGenerator

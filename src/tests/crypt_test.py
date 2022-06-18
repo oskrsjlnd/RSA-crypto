@@ -1,4 +1,4 @@
-from pydoc import plain
+# pylint: skip-file
 import unittest
 from src.crypto import Crypt
 

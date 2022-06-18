@@ -23,14 +23,14 @@ class KeyGenerator:
             # prime numbers after 2 must be odd
             if prime_candidate ^ 1 == prime_candidate + 1:
                 prime_candidate += 1
-            
+
             if self.k_prime_tests(prime_candidate):
                 break
 
         return prime_candidate
 
     def k_prime_tests(self, prime_candidate):
-        
+
         def prime_test(prime_candidate):
             # choose random integer 1 < a < prime_candidate
             a = randrange(2, prime_candidate-1)
@@ -42,7 +42,7 @@ class KeyGenerator:
             while d ^ 1 != d + 1:
                 d >>= 1
                 max_div += 1
-            
+
             b = pow(a, d, prime_candidate)
             # Fermat's little theorem if b is 1 or -1 then candidate is prime
             # (write -1 as prime_candidate-1)
@@ -63,11 +63,11 @@ class KeyGenerator:
         # of the probable prime being prime
         rounds = 40
         for _ in range(rounds):
-            is_prime = prime_test(prime_candidate) 
+            is_prime = prime_test(prime_candidate)
             if not is_prime:
                 return False
         return True
-    
+
     def gcd(self, a, b):
         gcd, remainder = a, b
 
