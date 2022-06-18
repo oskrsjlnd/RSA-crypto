@@ -17,8 +17,7 @@ Greatest common divisor function was tested with 2 numbers and their verified gc
 value is correct or not.
 Encryption was tested to see if the encrypt function actually creates a ciphertext not matching the original
 plaintext. The function was also tested to see whether it actually executes correctly with 50 randomly
-generated plaintext unicode strings created with code modified from [Stack Overflow](https://stackoverflow.com/questions/37842010/how-can-i-get-a-random-unicode-string):
-![test_data](https://user-images.githubusercontent.com/80696138/173233195-f6f1e3cb-37d2-4533-b819-c50061c16356.png)
+generated plaintext unicode strings.
 
 
 Decryption was tested to see if the message matches the original plaintext after decryption when algorithm
