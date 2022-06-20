@@ -1,8 +1,9 @@
 class Crypt:
     def encrypt_message(self, plaintext, public_key):
+        if len(plaintext) > 120:
+            return "Message is too long."
         n = public_key[0]
         e = public_key[1]
-
         # if input string is too long encryption fails
         try:
             bytesize = self.size_as_bytes_for_conversion(plaintext)
@@ -13,9 +14,10 @@ class Crypt:
         return ciphertext, bytesize
 
     def decrypt_message(self, cipher, private_key):
+        if cipher == "Message is too long":
+            return "Nothing to decrypt."
         n = private_key[0]
         d = private_key[1]
-
         # if decryption is tried with wrong private key, byte size for
         # conversion is wrong so return None
         try:

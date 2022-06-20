@@ -64,6 +64,13 @@ class TestCrypt(unittest.TestCase):
         cipher = self.crypt.encrypt_message(plaintext, self.public_key)
         ciphertext = cipher[0]
         self.assertNotEqual(ciphertext, int_ptext)
+    
+    def test_message_that_is_too_long_is_not_encrypted(self):
+        plaintext = """Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, 
+        consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. 
+        Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet."""
+        cipher = self.crypt.encrypt_message(plaintext, self.public_key)
+        self.assertEqual(cipher, "Message is too long.")
 
     def test_message_decrypted_right_priv_key_match_original_plaintext(self):
         plaintext = """alkuluku12alkuluku12alkuluku12alkuluku12alkuluku12alkuluku12alkuluku

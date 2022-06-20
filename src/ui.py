@@ -1,7 +1,7 @@
 from src.key_gen_utils import KeyGenerator
 from src.crypto import Crypt
 
-class IO:
+class UI:
     def __init__(self, crypt: Crypt, keygen: KeyGenerator):
         self.crypt = crypt
         self.keygen = keygen
