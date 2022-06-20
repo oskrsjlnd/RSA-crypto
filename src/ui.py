@@ -88,7 +88,7 @@ class UI:
                 break
 
             elif action == "dec" and (self.encrypted_message is None):
-                print("No encrypted message found.\n")
+                print("No encrypted message found.")
 
             elif action == "gen":
                 self.encrypted_message = None
