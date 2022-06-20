@@ -93,7 +93,7 @@ class UI:
         quit()
 
 if __name__ == "__main__":
-    io = IO(Crypt(), KeyGenerator())
-    io.launch()
+    ui = UI(Crypt(), KeyGenerator())
+    ui.launch()
     while True:
-        io.select_action()
+        ui.select_action()
