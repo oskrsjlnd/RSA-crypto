@@ -9,6 +9,9 @@ class UI:
 
     def launch(self):
         print(">>> Welcome to the RSA cryptography program <<<\n")
+        self.keys()
+    
+    def keys(self):
         key_size = self.select_key_bit_size()
         self.key_pair = self.key_generation(key_size)
 
@@ -59,19 +62,22 @@ class UI:
     def decrypt_previous_message(self, private_key):
         decrypted = self.crypt.decrypt_message(self.encrypted_message, private_key)
         return decrypted
-
+    
+    def help_commands(self):
+        self.print_lines()
+        print("Options:\n"
+        "enc - Encrypt message\n"
+        "dec - Decrypt message\n"
+        "showmsg - Show encrypted message\n"
+        "gen - Generate new keys\n"
+        "spub - Show public key\n"
+        "spriv - Show private key\n"
+        "quit - Quit program")
+        self.print_lines()
+        
     def select_action(self):
+        self.help_commands()
         while True:
-            self.print_lines()
-            print("Options:\n"
-            "enc - Encrypt message\n"
-            "dec - Decrypt message\n"
-            "showmsg - Show encrypted message\n"
-            "gen - Generate new keys\n"
-            "spub - Show public key\n"
-            "spriv - Show private key\n"
-            "quit - Quit program")
-            self.print_lines()
             action = input(">>> ")
             self.print_lines()
 
@@ -92,7 +98,7 @@ class UI:
 
             elif action == "gen":
                 self.encrypted_message = None
-                self.select_key_bit_size()
+                self.keys()
                 break
 
             elif action == "quit":
@@ -111,9 +117,14 @@ class UI:
                     print(f"Encrypted message:\n> {self.encrypted_message[0]}")
                 else:
                     print("No encrypted message to found.")
+            
+            elif action == "help":
+                self.help_commands()
 
             else:
-                print(">>Choose valid action<<")
+                print(">> Choose valid action <<\n")
+                print("Type 'help' for a list of commands.")
+                self.print_lines()
 
     def quit(self):
         print("Shutting down")
