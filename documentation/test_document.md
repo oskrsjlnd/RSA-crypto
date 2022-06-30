@@ -6,7 +6,7 @@
 - String and int conversion functions were tested separately.
 
 ## Test coverage
-![coverage_tira](https://user-images.githubusercontent.com/80696138/173233215-faa8d6aa-452d-43a0-9268-669b2fe70137.png)
+![coverage report](https://user-images.githubusercontent.com/80696138/176777060-c5df1c01-94c8-4610-b674-a87767a93821.png)
 [![codecov](https://codecov.io/gh/oskrsjlnd/RSA-crypto/branch/main/graph/badge.svg?token=KGXKLCTU0Q)](https://codecov.io/gh/oskrsjlnd/RSA-crypto)
 
 ## Test input
