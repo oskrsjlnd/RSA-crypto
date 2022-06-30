@@ -18,7 +18,7 @@ poetry install
 ```
 Run program in terminal while in the program root directory:
 ```
-poetry run python index.py
+poetry run python src/index.py
 ```
 Commands:
 When the program starts select key size. After this:
